@@ -335,7 +335,7 @@ if st.sidebar.button("Logout", type="primary", use_container_width=True):
 
 # --- Main Dashboard Rendering ---
 if st.session_state.squeue_raw_data:
-    st.info(f"Last Synchronization Time: {st.session_state.last_update}")
+    st.info(f"Last Synchronization Time (KST): {st.session_state.last_update}")
     
     if not st.session_state.squeue_raw_data.strip():
         st.warning("No active jobs currently running in the cluster.")
