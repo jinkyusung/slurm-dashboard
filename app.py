@@ -481,7 +481,7 @@ if st.session_state.squeue_raw_data:
                 node_html = f"""<div class="node-row"><div class="node-info"><b style="font-size:19px; color:var(--text-color);">{node_id.upper()}</b><br><span style="font-size:13px; color:var(--text-color); opacity:0.8; font-weight:500;">{config['gpu']}</span><br><span style="font-size:12px; color:var(--text-color); opacity:0.6;">RAM {config['mem']} / {config['cpu']}C</span></div><div class="slots-wrapper">{slots_html}</div></div>"""
                 st.markdown(node_html, unsafe_allow_html=True)
 
-            st.markdown('<div style="margin-top: 30px;"></div>', unsafe_allow_html=True)
+            st.markdown('<div style="margin-top: 50px;"></div>', unsafe_allow_html=True)
             st.markdown("---")
 
             # SECTION 3: JOB TIMELINES
