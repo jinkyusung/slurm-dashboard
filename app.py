@@ -350,6 +350,7 @@ if st.session_state.squeue_raw_data:
             )
             fig_bar.update_layout(barmode='stack', height=400, margin=dict(t=30, b=20),
                                     font=dict(size=14, family="Google Sans Flex"))
+            fig_bar.update_traces(textfont_color='white', textposition='inside')
             st.plotly_chart(fig_bar, use_container_width=True)
             
             st.markdown("---")
@@ -451,6 +452,7 @@ if st.session_state.squeue_raw_data:
                                         yaxis_title="Job Identifier [User & ID]",
                                         font=dict(size=14, family="Google Sans Flex"))
             fig_user_gantt.update_yaxes(autorange="reversed")
+            fig_user_gantt.update_traces(textfont_color='white', textposition='inside')
             st.plotly_chart(fig_user_gantt, use_container_width=True)
 
             st.markdown("---")
@@ -464,7 +466,7 @@ if st.session_state.squeue_raw_data:
                 labels={'Elapsed_Hours': 'Run Time (Hours)', 'Unique_Job_Label': 'Job'},
                 color_discrete_sequence=APP_COLORS
             )
-            fig_rank.update_traces(texttemplate='%{text:.1f}h', textposition='outside')
+            fig_rank.update_traces(texttemplate='%{text:.1f}h', textposition='inside', textfont_color='white')
             fig_rank.update_layout(height=700, yaxis={'categoryorder':'total ascending'},
                                     font=dict(size=14, family="Google Sans Flex"))
             st.plotly_chart(fig_rank, use_container_width=True)
