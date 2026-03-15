@@ -378,6 +378,12 @@ if st.session_state.squeue_raw_data:
 
             st.markdown("---")
 
+            # SECTION 1: RESOURCE OVERVIEW
+            st.header("Resource Overview", anchor="resource-overview")
+            user_node_df = df.groupby(['USER', 'NODELIST'])['GPU_Count'].sum().reset_index()
+            user_node_df = user_node_df[user_node_df['GPU_Count'] > 0]
+            user_total_order = user_node_df.groupby('USER')['GPU_Count'].sum().sort_values(ascending=False).index.tolist()
+
             # Create deterministic color map for Plotly to ensure persistence
             unique_users = df['USER'].unique()
             node_ids = list(NODE_CONFIG.keys())
