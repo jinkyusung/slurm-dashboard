@@ -346,7 +346,7 @@ if st.session_state.squeue_raw_data:
             df = pd.read_csv(io.StringIO(st.session_state.squeue_raw_data), sep='|', names=columns)
             
             # Global reference time (KST)
-            current_time = datetime.now(KST).replace(tzinfo=None).floor('S')
+            current_time = pd.Timestamp(datetime.now(KST)).replace(tzinfo=None).floor('S')
             
             # Time Vectorization
             df['Elapsed_Time'] = df['TIME'].apply(parse_time_string)
