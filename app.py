@@ -184,14 +184,30 @@ if 'last_update' not in st.session_state:
 # --- Connection Configuration handled dynamically ---
 
 # --- Premium Color Palette (High contrast for white text) ---
+# --- Premium Color Palette (With Dynamic Text Contrast) ---
 APP_COLORS = [
-    "#B71C1C", "#0D47A1", "#1B5E20", "#E65100", "#4A148C", 
-    "#006064", "#3E2723", "#263238", "#880E4F", "#311B92", 
-    "#1A237E", "#01579B", "#004D40", "#33691E", "#33691E", 
-    "#BF360C", "#FF6F00", "#1B5E20", "#0D47A1", "#880E4F",
-    "#4A148C", "#1A237E", "#01579B", "#006064", "#004D40",
-    "#1B5E20", "#827717", "#E65100", "#E65100", "#BF360C"
+    {"bg": "#FFEB3B", "fg": "#000000"}, # Bright Yellow
+    {"bg": "#FFC107", "fg": "#000000"}, # Amber
+    {"bg": "#00BCD4", "fg": "#000000"}, # Cyan
+    {"bg": "#8BC34A", "fg": "#000000"}, # Light Green
+    {"bg": "#CDDC39", "fg": "#000000"}, # Lime
+    {"bg": "#90CAF9", "fg": "#000000"}, # Light Blue
+    {"bg": "#F48FB1", "fg": "#000000"}, # Pink
+    {"bg": "#B71C1C", "fg": "#FFFFFF"}, # Deep Red
+    {"bg": "#0D47A1", "fg": "#FFFFFF"}, # Dark Blue
+    {"bg": "#1B5E20", "fg": "#FFFFFF"}, # Dark Green
+    {"bg": "#E65100", "fg": "#FFFFFF"}, # Deep Orange
+    {"bg": "#4A148C", "fg": "#FFFFFF"}, # Purple
+    {"bg": "#37474F", "fg": "#FFFFFF"}, # Blue Grey
+    {"bg": "#006064", "fg": "#FFFFFF"}, # Teal
+    {"bg": "#3E2723", "fg": "#FFFFFF"}, # Dark Brown
+    {"bg": "#880E4F", "fg": "#FFFFFF"}, # Pink (Dark)
+    {"bg": "#1A237E", "fg": "#FFFFFF"}, # Indigo
+    {"bg": "#004D40", "fg": "#FFFFFF"}, # Deep Teal
+    {"bg": "#263238", "fg": "#FFFFFF"}, # Slate
+    {"bg": "#33691E", "fg": "#FFFFFF"}  # Olive (Dark)
 ]
+PLOTLY_COLORS = [c["bg"] for c in APP_COLORS]
 
 # --- Hardware Specification Registry ---
 NODE_CONFIG = {
@@ -348,7 +364,7 @@ if st.session_state.squeue_raw_data:
                 labels={'GPU_Count': '<b>GPU Count</b>', 'USER': '<b>User Name</b>'},
                 category_orders={'USER': user_total_order},
                 text='GPU_Count',
-                color_discrete_sequence=APP_COLORS
+                color_discrete_sequence=PLOTLY_COLORS
             )
             fig_bar.update_layout(barmode='stack', height=400, margin=dict(t=30, b=20),
                                     font=dict(size=14, family="Google Sans Flex"))
@@ -388,7 +404,7 @@ if st.session_state.squeue_raw_data:
                     flex-shrink: 0;
                     border-radius: 4px;
                     text-align: center;
-                    color: white; /* Keep white text for colored background */
+                    /* Removed fixed white color to allow dynamic contrast */
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -425,9 +441,11 @@ if st.session_state.squeue_raw_data:
                 for slot in current_slots:
                     if slot:
                         user, jobid, runtime = slot
-                        c_idx = hash(str(jobid)) % len(APP_COLORS)
-                        # Build compact slot HTML without any leading spaces or newlines
-                        slots_html += f'<div class="gpu-slot" style="background-color: {APP_COLORS[c_idx]};"><div style="font-size:11px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{user}</div><div style="font-size:10px; opacity:0.85; margin: 1px 0;">#{jobid}</div><div style="font-size:11px; background:rgba(255,255,255,0.2); border-radius:2px; font-weight:600;">{runtime}</div></div>'
+                        color_data = APP_COLORS[hash(str(jobid)) % len(APP_COLORS)]
+                        bg_color = color_data["bg"]
+                        text_color = color_data["fg"]
+                        # Build compact slot HTML with dynamic text color
+                        slots_html += f'<div class="gpu-slot" style="background-color: {bg_color}; color: {text_color};"><div style="font-size:11px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{user}</div><div style="font-size:10px; opacity:0.85; margin: 1px 0;">#{jobid}</div><div style="font-size:11px; background:rgba(255,255,255,0.2); border-radius:2px; font-weight:600;">{runtime}</div></div>'
                     else:
                         slots_html += '<div class="gpu-slot-empty"></div>'
 
@@ -445,7 +463,7 @@ if st.session_state.squeue_raw_data:
                 y="Unique_Job_Label", color="USER", hover_name="NAME",
                 text="GPU_Count",
                 hover_data={"JOBID":True, "Elapsed_Hours":":.2f", "USER":True},
-                color_discrete_sequence=APP_COLORS
+                color_discrete_sequence=PLOTLY_COLORS
             )
             gantt_height = max(500, len(df) * 35)
             fig_user_gantt.update_layout(height=gantt_height, showlegend=True, 
@@ -465,7 +483,7 @@ if st.session_state.squeue_raw_data:
                 orientation='h', text='Elapsed_Hours',
                 labels={'Elapsed_Hours': 'Run Time (Hours)', 'Unique_Job_Label': 'Job'},
                 title="<b>Active Cluster Retention Ranking</b>",
-                color_discrete_sequence=APP_COLORS
+                color_discrete_sequence=PLOTLY_COLORS
             )
             fig_rank.update_traces(texttemplate='%{text:.1f}h', textposition='outside')
             fig_rank.update_layout(height=700, yaxis={'categoryorder':'total ascending'},
@@ -480,7 +498,7 @@ if st.session_state.squeue_raw_data:
                 df, x="Elapsed_Hours", y="GPU_Count", size="CPUS", color="USER",
                 hover_name="Unique_Job_Label", size_max=60,
                 labels={'Elapsed_Hours': 'Elapsed Hours', 'GPU_Count': 'Allocated GPUs', 'CPUS': 'CPU Allocation'},
-                color_discrete_sequence=APP_COLORS
+                color_discrete_sequence=PLOTLY_COLORS
             )
             fig_bubble.update_layout(height=600, font=dict(size=14, family="Google Sans Flex"))
             st.plotly_chart(fig_bubble, use_container_width=True)
