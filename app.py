@@ -506,7 +506,6 @@ if st.session_state.squeue_raw_data:
                 top_20_df, x='Elapsed_Hours', y='Unique_Job_Label', color='USER',
                 orientation='h', text='Elapsed_Hours',
                 labels={'Elapsed_Hours': 'Run Time (Hours)', 'Unique_Job_Label': 'Job'},
-                title="<b>Active Cluster Retention Ranking</b>",
                 color_discrete_map=user_color_map
             )
             fig_rank.update_traces(texttemplate='%{text:.1f}h', textposition='outside')
