@@ -456,13 +456,12 @@ if st.session_state.squeue_raw_data:
             st.markdown("---")
 
             # SECTION 4: LONG-RUNNING RANKING
-            st.header("Longest Running Jobs (TOP 20)", anchor="ranking")
+            st.header("Top 20 Longest Running Jobs", anchor="ranking")
             top_20_df = df.sort_values(by='Elapsed_Hours', ascending=False).head(20)
             fig_rank = px.bar(
                 top_20_df, x='Elapsed_Hours', y='Unique_Job_Label', color='USER',
                 orientation='h', text='Elapsed_Hours',
                 labels={'Elapsed_Hours': 'Run Time (Hours)', 'Unique_Job_Label': 'Job'},
-                title="<b>Active Cluster Retention Ranking</b>",
                 color_discrete_sequence=APP_COLORS
             )
             fig_rank.update_traces(texttemplate='%{text:.1f}h', textposition='outside')
