@@ -51,8 +51,8 @@ st.markdown("""
     }
     
     [data-testid="stMainBlockContainer"] {
-        min-width: 1280px !important;
-        max-width: 1280px !important;
+        min-width: 1000px !important;
+        max-width: 1000px !important;
         margin: 0 auto !important;
         padding-left: 2rem !important;
         padding-right: 2rem !important;
@@ -63,9 +63,9 @@ st.markdown("""
     }
 
     /* Headings Styling (Main only) */
-    h1 { font-size: 2.22rem !important; font-weight: 700 !important; color: var(--text-color); }
-    h2 { font-size: 1.8rem !important; font-weight: 700 !important; color: var(--text-color); opacity: 0.9; margin-top: 2rem !important; }
-    h3 { font-size: 1.3rem !important; font-weight: 600 !important; color: var(--text-color); opacity: 0.8; }
+    h1 { font-size: 2.0rem !important; font-weight: 700 !important; color: var(--text-color); }
+    h2 { font-size: 1.6rem !important; font-weight: 700 !important; color: var(--text-color); opacity: 0.9; margin-top: 1.5rem !important; }
+    h3 { font-size: 1.25rem !important; font-weight: 600 !important; color: var(--text-color); opacity: 0.8; }
 
     /* Login Page Aesthetics */
     .login-container {
@@ -394,8 +394,8 @@ if st.session_state.squeue_raw_data:
                 text='GPU_Count',
                 color_discrete_map=node_color_map
             )
-            fig_bar.update_layout(barmode='stack', height=400, margin=dict(t=30, b=20),
-                                    font=dict(size=14, family="Google Sans Flex"))
+            fig_bar.update_layout(barmode='stack', height=350, margin=dict(t=30, b=20),
+                                    font=dict(size=12, family="Google Sans Flex"))
             st.plotly_chart(fig_bar, use_container_width=True)
             
             st.markdown("---")
@@ -417,31 +417,30 @@ if st.session_state.squeue_raw_data:
                     border-bottom: 1px solid rgba(128, 128, 128, 0.2);
                 }
                 .node-info {
-                    width: 120px;
+                    width: 100px;
                     flex-shrink: 0;
-                    margin-right: 15px;
+                    margin-right: 10px;
                 }
                 .slots-wrapper {
                     display: flex;
-                    gap: 10px;
+                    gap: 4px;
                     flex-grow: 1;
                 }
                 .gpu-slot {
-                    width: 95px;
-                    height: 72px;
+                    width: 78px;
+                    height: 62px;
                     flex-shrink: 0;
                     border-radius: 4px;
                     text-align: center;
-                    /* Removed fixed white color to allow dynamic contrast */
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
-                    padding: 2px;
+                    padding: 1px;
                     border: 1px solid rgba(0,0,0,0.1);
                 }
                 .gpu-slot-empty {
-                    width: 95px;
-                    height: 72px;
+                    width: 78px;
+                    height: 62px;
                     flex-shrink: 0;
                     background-color: rgba(128, 128, 128, 0.05);
                     border: 1px dashed rgba(128, 128, 128, 0.3);
@@ -473,12 +472,12 @@ if st.session_state.squeue_raw_data:
                         bg_color = color_data["bg"]
                         text_color = color_data["fg"]
                         # Build compact slot HTML with dynamic text color
-                        slots_html += f'<div class="gpu-slot" style="background-color: {bg_color}; color: {text_color};"><div style="font-size:11px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{user}</div><div style="font-size:10px; opacity:0.85; margin: 1px 0;">#{jobid}</div><div style="font-size:11px; background:rgba(255,255,255,0.2); border-radius:2px; font-weight:600;">{runtime}</div></div>'
+                        slots_html += f'<div class="gpu-slot" style="background-color: {bg_color}; color: {text_color};"><div style="font-size:9px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{user}</div><div style="font-size:8px; opacity:0.85; margin: 0px 0;">#{jobid}</div><div style="font-size:9px; background:rgba(255,255,255,0.2); border-radius:2px; font-weight:600;">{runtime}</div></div>'
                     else:
                         slots_html += '<div class="gpu-slot-empty"></div>'
 
                 # Render the entire node row using compact HTML to prevent markdown parsing errors
-                node_html = f"""<div class="node-row"><div class="node-info"><b style="font-size:19px; color:var(--text-color);">{node_id.upper()}</b><br><span style="font-size:13px; color:var(--text-color); opacity:0.8; font-weight:500;">{config['gpu']}</span><br><span style="font-size:12px; color:var(--text-color); opacity:0.6;">RAM {config['mem']} / {config['cpu']}C</span></div><div class="slots-wrapper">{slots_html}</div></div>"""
+                node_html = f"""<div class="node-row"><div class="node-info"><b style="font-size:17px; color:var(--text-color);">{node_id.upper()}</b><br><span style="font-size:12px; color:var(--text-color); opacity:0.8; font-weight:500;">{config['gpu']}</span><br><span style="font-size:11px; color:var(--text-color); opacity:0.6;">RAM {config['mem']} / {config['cpu']}C</span></div><div class="slots-wrapper">{slots_html}</div></div>"""
                 st.markdown(node_html, unsafe_allow_html=True)
 
             st.markdown('<div style="margin-top: 50px;"></div>', unsafe_allow_html=True)
@@ -494,11 +493,11 @@ if st.session_state.squeue_raw_data:
                 hover_data={"JOBID":True, "Elapsed_Hours":":.2f", "USER":True},
                 color_discrete_map=user_color_map
             )
-            gantt_height = max(500, len(df) * 35)
+            gantt_height = max(400, len(df) * 30)
             fig_user_gantt.update_layout(height=gantt_height, showlegend=True, 
                                         xaxis=dict(tickformat="%m/%d %H:%M"),
-                                        yaxis_title="Job Identifier [User & ID]",
-                                        font=dict(size=14, family="Google Sans Flex"))
+                                        yaxis_title="Job [User & ID]",
+                                        font=dict(size=12, family="Google Sans Flex"))
             fig_user_gantt.update_yaxes(autorange="reversed")
             st.plotly_chart(fig_user_gantt, use_container_width=True)
 
@@ -514,8 +513,8 @@ if st.session_state.squeue_raw_data:
                 color_discrete_map=user_color_map
             )
             fig_rank.update_traces(texttemplate='%{text:.1f}h', textposition='outside')
-            fig_rank.update_layout(height=700, yaxis={'categoryorder':'total ascending'},
-                                    font=dict(size=14, family="Google Sans Flex"))
+            fig_rank.update_layout(height=600, yaxis={'categoryorder':'total ascending'},
+                                    font=dict(size=12, family="Google Sans Flex"))
             st.plotly_chart(fig_rank, use_container_width=True)
 
             st.markdown("---")
@@ -528,7 +527,7 @@ if st.session_state.squeue_raw_data:
                 labels={'Elapsed_Hours': 'Elapsed Hours', 'GPU_Count': 'Allocated GPUs', 'CPUS': 'CPU Allocation'},
                 color_discrete_map=user_color_map
             )
-            fig_bubble.update_layout(height=600, font=dict(size=14, family="Google Sans Flex"))
+            fig_bubble.update_layout(height=500, font=dict(size=12, family="Google Sans Flex"))
             st.plotly_chart(fig_bubble, use_container_width=True)
                 
         except Exception as e:
