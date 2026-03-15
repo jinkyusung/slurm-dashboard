@@ -185,12 +185,12 @@ if 'last_update' not in st.session_state:
 
 # --- Premium Color Palette (High contrast for white text) ---
 APP_COLORS = [
-    "#D32F2F", "#1976D2", "#388E3C", "#F57C00", "#7B1FA2", 
-    "#0097A7", "#5D4037", "#455A64", "#C2185B", "#512DA8", 
-    "#303F9F", "#0288D1", "#00796B", "#689F38", "#827717", 
-    "#E64A19", "#FF8F00", "#2E7D32", "#1565C0", "#AD1457",
-    "#6A1B9A", "#283593", "#0277BD", "#00838F", "#00695C",
-    "#558B2F", "#9E9D24", "#263238", "#EF6C00", "#BF360C"
+    "#B71C1C", "#0D47A1", "#1B5E20", "#E65100", "#4A148C", 
+    "#006064", "#3E2723", "#263238", "#880E4F", "#311B92", 
+    "#1A237E", "#01579B", "#004D40", "#33691E", "#33691E", 
+    "#BF360C", "#FF6F00", "#1B5E20", "#0D47A1", "#880E4F",
+    "#4A148C", "#1A237E", "#01579B", "#006064", "#004D40",
+    "#1B5E20", "#827717", "#E65100", "#E65100", "#BF360C"
 ]
 
 # --- Hardware Specification Registry ---
@@ -350,7 +350,6 @@ if st.session_state.squeue_raw_data:
             )
             fig_bar.update_layout(barmode='stack', height=400, margin=dict(t=30, b=20),
                                     font=dict(size=14, family="Google Sans Flex"))
-            fig_bar.update_traces(textfont_color='white', textposition='inside')
             st.plotly_chart(fig_bar, use_container_width=True)
             
             st.markdown("---")
@@ -452,21 +451,21 @@ if st.session_state.squeue_raw_data:
                                         yaxis_title="Job Identifier [User & ID]",
                                         font=dict(size=14, family="Google Sans Flex"))
             fig_user_gantt.update_yaxes(autorange="reversed")
-            fig_user_gantt.update_traces(textfont_color='white', textposition='inside')
             st.plotly_chart(fig_user_gantt, use_container_width=True)
 
             st.markdown("---")
 
             # SECTION 4: LONG-RUNNING RANKING
-            st.header("Top 20 Longest Running Jobs", anchor="ranking")
+            st.header("Longest Running Jobs (TOP 20)", anchor="ranking")
             top_20_df = df.sort_values(by='Elapsed_Hours', ascending=False).head(20)
             fig_rank = px.bar(
                 top_20_df, x='Elapsed_Hours', y='Unique_Job_Label', color='USER',
                 orientation='h', text='Elapsed_Hours',
                 labels={'Elapsed_Hours': 'Run Time (Hours)', 'Unique_Job_Label': 'Job'},
+                title="<b>Active Cluster Retention Ranking</b>",
                 color_discrete_sequence=APP_COLORS
             )
-            fig_rank.update_traces(texttemplate='%{text:.1f}h', textposition='inside', textfont_color='white')
+            fig_rank.update_traces(texttemplate='%{text:.1f}h', textposition='outside')
             fig_rank.update_layout(height=700, yaxis={'categoryorder':'total ascending'},
                                     font=dict(size=14, family="Google Sans Flex"))
             st.plotly_chart(fig_rank, use_container_width=True)
