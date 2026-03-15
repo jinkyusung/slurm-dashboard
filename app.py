@@ -7,6 +7,10 @@ import time
 from datetime import datetime
 from streamlit_cookies_manager import EncryptedCookieManager
 import os
+import pytz
+
+# --- Timezone Setup ---
+KST = pytz.timezone('Asia/Seoul')
 
 # --- Page Configuration ---
 st.set_page_config(page_title="Slurm GPU Dash", layout="wide")
@@ -296,7 +300,7 @@ if st.sidebar.button("Fetch Live Data", use_container_width=True):
         raw_data = get_squeue_via_ssh(HOST, PORT, USERNAME, PASSWORD)
         if raw_data is not None:
             st.session_state.squeue_raw_data = raw_data
-            st.session_state.last_update = time.strftime('%Y-%m-%d %H:%M:%S')
+            st.session_state.last_update = datetime.now(KST).strftime('%Y-%m-%d %H:%M:%S')
             st.sidebar.success("Data Fetched Successfully")
 
 if st.sidebar.button("Reshuffle Dashboard Colors", use_container_width=True):
@@ -341,8 +345,8 @@ if st.session_state.squeue_raw_data:
             columns = ['JOBID', 'NAME', 'ST', 'USER', 'PARTITION', 'NODELIST', 'CPUS', 'TRES_PER_NODE', 'MIN_MEMO', 'TIME', 'TIME_LIMIT']
             df = pd.read_csv(io.StringIO(st.session_state.squeue_raw_data), sep='|', names=columns)
             
-            # Global reference time
-            current_time = pd.Timestamp.now().floor('S')
+            # Global reference time (KST)
+            current_time = datetime.now(KST).replace(tzinfo=None).floor('S')
             
             # Time Vectorization
             df['Elapsed_Time'] = df['TIME'].apply(parse_time_string)

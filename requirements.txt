@@ -3,3 +3,4 @@ pandas
 paramiko
 plotly
 streamlit_cookies_manager
+pytz
