@@ -188,52 +188,39 @@ if 'color_seed' not in st.session_state:
 # --- Premium Color Palette (High contrast for white text) ---
 # --- Premium Color Palette (With Dynamic Text Contrast) ---
 APP_COLORS = [
-    {"bg": "#B71C1C", "fg": "#FFFFFF"}, # Deep Red
-    {"bg": "#FFEB3B", "fg": "#000000"}, # Yellow
-    {"bg": "#0D47A1", "fg": "#FFFFFF"}, # Dark Blue
-    {"bg": "#FFC107", "fg": "#000000"}, # Amber
-    {"bg": "#1B5E20", "fg": "#FFFFFF"}, # Dark Green
-    {"bg": "#00BCD4", "fg": "#000000"}, # Cyan
-    {"bg": "#4A148C", "fg": "#FFFFFF"}, # Purple
-    {"bg": "#8BC34A", "fg": "#000000"}, # Light Green
-    {"bg": "#E65100", "fg": "#FFFFFF"}, # Deep Orange
-    {"bg": "#CDDC39", "fg": "#000000"}, # Lime
-    {"bg": "#311B92", "fg": "#FFFFFF"}, # Deep Purple
-    {"bg": "#90CAF9", "fg": "#000000"}, # Light Blue
-    {"bg": "#C2185B", "fg": "#FFFFFF"}, # Deep Pink
-    {"bg": "#F48FB1", "fg": "#000000"}, # Pink
-    {"bg": "#3E2723", "fg": "#FFFFFF"}, # Dark Brown
-    {"bg": "#FF9800", "fg": "#000000"}, # Orange
-    {"bg": "#1A237E", "fg": "#FFFFFF"}, # Indigo
-    {"bg": "#BBDEFB", "fg": "#000000"}, # Pale Blue
-    {"bg": "#004D40", "fg": "#FFFFFF"}, # Deep Teal
-    {"bg": "#DCE775", "fg": "#000000"}, # Bright Lime
-    {"bg": "#880E4F", "fg": "#FFFFFF"}, # Pink (Dark)
-    {"bg": "#FFAB91", "fg": "#000000"}, # Deep Orange (Light)
-    {"bg": "#2E7D32", "fg": "#FFFFFF"}, # Green
-    {"bg": "#B2DFDB", "fg": "#000000"}, # Teal (Light)
-    {"bg": "#1565C0", "fg": "#FFFFFF"}, # Blue
-    {"bg": "#C8E6C9", "fg": "#000000"}, # Green (Light)
-    {"bg": "#BF360C", "fg": "#FFFFFF"}, # Vermillion
-    {"bg": "#E1BEE7", "fg": "#000000"}, # Purple (Light)
-    {"bg": "#33691E", "fg": "#FFFFFF"}, # Olive (Dark)
-    {"bg": "#FFE082", "fg": "#000000"}, # Amber (Light)
-    {"bg": "#006064", "fg": "#FFFFFF"}, # Dark Teal
-    {"bg": "#81D4FA", "fg": "#000000"}, # Light Blue (Sky)
-    {"bg": "#4E342E", "fg": "#FFFFFF"}, # Coffee
-    {"bg": "#A5D6A7", "fg": "#000000"}, # Green (Pale)
-    {"bg": "#263238", "fg": "#FFFFFF"}, # Blue Grey (Dark)
-    {"bg": "#B39DDB", "fg": "#000000"}, # Deep Purple (Light)
-    {"bg": "#AD1457", "fg": "#FFFFFF"}, # Pink (Darker)
-    {"bg": "#F06292", "fg": "#000000"}, # Medium Pink
-    {"bg": "#0277BD", "fg": "#FFFFFF"}, # Blue (Darker)
-    {"bg": "#FFB74D", "fg": "#000000"}  # Light Orange
+    # Interleaved Light and Dark tones with unique hues
+    {"bg": "#B71C1C", "fg": "#FFFFFF"}, {"bg": "#FFEB3B", "fg": "#000000"},
+    {"bg": "#0D47A1", "fg": "#FFFFFF"}, {"bg": "#FFC107", "fg": "#000000"},
+    {"bg": "#1B5E20", "fg": "#FFFFFF"}, {"bg": "#00BCD4", "fg": "#000000"},
+    {"bg": "#4A148C", "fg": "#FFFFFF"}, {"bg": "#8BC34A", "fg": "#000000"},
+    {"bg": "#E65100", "fg": "#FFFFFF"}, {"bg": "#CDDC39", "fg": "#000000"},
+    {"bg": "#311B92", "fg": "#FFFFFF"}, {"bg": "#90CAF9", "fg": "#000000"},
+    {"bg": "#C2185B", "fg": "#FFFFFF"}, {"bg": "#F48FB1", "fg": "#000000"},
+    {"bg": "#3E2723", "fg": "#FFFFFF"}, {"bg": "#FF9800", "fg": "#000000"},
+    {"bg": "#1A237E", "fg": "#FFFFFF"}, {"bg": "#BBDEFB", "fg": "#000000"},
+    {"bg": "#004D40", "fg": "#FFFFFF"}, {"bg": "#DCE775", "fg": "#000000"},
+    {"bg": "#880E4F", "fg": "#FFFFFF"}, {"bg": "#FFAB91", "fg": "#000000"},
+    {"bg": "#2E7D32", "fg": "#FFFFFF"}, {"bg": "#B2DFDB", "fg": "#000000"},
+    {"bg": "#1565C0", "fg": "#FFFFFF"}, {"bg": "#C8E6C9", "fg": "#000000"},
+    {"bg": "#BF360C", "fg": "#FFFFFF"}, {"bg": "#E1BEE7", "fg": "#000000"},
+    {"bg": "#33691E", "fg": "#FFFFFF"}, {"bg": "#FFE082", "fg": "#000000"},
+    {"bg": "#006064", "fg": "#FFFFFF"}, {"bg": "#81D4FA", "fg": "#000000"},
+    {"bg": "#4E342E", "fg": "#FFFFFF"}, {"bg": "#A5D6A7", "fg": "#000000"},
+    {"bg": "#263238", "fg": "#FFFFFF"}, {"bg": "#B39DDB", "fg": "#000000"},
+    {"bg": "#AD1457", "fg": "#FFFFFF"}, {"bg": "#F06292", "fg": "#000000"},
+    {"bg": "#0277BD", "fg": "#FFFFFF"}, {"bg": "#BA68C8", "fg": "#000000"},
+    {"bg": "#1976D2", "fg": "#FFFFFF"}, {"bg": "#4DB6AC", "fg": "#000000"}
 ]
 
+import hashlib
+
 def get_stable_color(identifier):
-    """Returns a consistent color dict for a given string/ID."""
-    # Deterministic hash to avoid randomization, influenced by session seed
-    hash_val = sum(ord(c) for c in str(identifier)) + st.session_state.color_seed
+    """Returns a consistent color dict for a given string/ID using MD5 for collision resistance."""
+    # Salt the identifier with the seed to completely change mapping on reshuffle
+    salt = f"v1_{st.session_state.color_seed}_"
+    hash_input = (salt + str(identifier)).encode()
+    hash_hex = hashlib.md5(hash_input).hexdigest()
+    hash_val = int(hash_hex, 16)
     return APP_COLORS[hash_val % len(APP_COLORS)]
 
 # --- Hardware Specification Registry ---
