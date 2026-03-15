@@ -183,6 +183,16 @@ if 'last_update' not in st.session_state:
 
 # --- Connection Configuration handled dynamically ---
 
+# --- Premium Color Palette (High contrast for white text) ---
+APP_COLORS = [
+    "#D32F2F", "#1976D2", "#388E3C", "#F57C00", "#7B1FA2", 
+    "#0097A7", "#5D4037", "#455A64", "#C2185B", "#512DA8", 
+    "#303F9F", "#0288D1", "#00796B", "#689F38", "#827717", 
+    "#E64A19", "#FF8F00", "#2E7D32", "#1565C0", "#AD1457",
+    "#6A1B9A", "#283593", "#0277BD", "#00838F", "#00695C",
+    "#558B2F", "#9E9D24", "#263238", "#EF6C00", "#BF360C"
+]
+
 # --- Hardware Specification Registry ---
 NODE_CONFIG = {
     "node01": {"gpu": "A100 (41GB)", "slots": 8, "mem": "512GB", "cpu": 96},
@@ -335,7 +345,8 @@ if st.session_state.squeue_raw_data:
                 user_node_df, x='USER', y='GPU_Count', color='NODELIST',
                 labels={'GPU_Count': '<b>GPU Count</b>', 'USER': '<b>User Name</b>'},
                 category_orders={'USER': user_total_order},
-                text='GPU_Count'
+                text='GPU_Count',
+                color_discrete_sequence=APP_COLORS
             )
             fig_bar.update_layout(barmode='stack', height=400, margin=dict(t=30, b=20),
                                     font=dict(size=14, family="Google Sans Flex"))
@@ -409,13 +420,12 @@ if st.session_state.squeue_raw_data:
                     current_slots.append(None)
                 
                 slots_html = ""
-                colors = ["#FF4B4B", "#1C83E1", "#00C0F2", "#FFAA00", "#00D1B2", "#7E57C2", "#FF69B4", "#BDB76B", "#FF6347", "#4682B4", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A", "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722", "#795548", "#607D8B"]
                 for slot in current_slots:
                     if slot:
                         user, jobid, runtime = slot
-                        c_idx = hash(str(jobid)) % len(colors)
+                        c_idx = hash(str(jobid)) % len(APP_COLORS)
                         # Build compact slot HTML without any leading spaces or newlines
-                        slots_html += f'<div class="gpu-slot" style="background-color: {colors[c_idx]};"><div style="font-size:11px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{user}</div><div style="font-size:10px; opacity:0.85; margin: 1px 0;">#{jobid}</div><div style="font-size:11px; background:rgba(255,255,255,0.2); border-radius:2px; font-weight:600;">{runtime}</div></div>'
+                        slots_html += f'<div class="gpu-slot" style="background-color: {APP_COLORS[c_idx]};"><div style="font-size:11px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{user}</div><div style="font-size:10px; opacity:0.85; margin: 1px 0;">#{jobid}</div><div style="font-size:11px; background:rgba(255,255,255,0.2); border-radius:2px; font-weight:600;">{runtime}</div></div>'
                     else:
                         slots_html += '<div class="gpu-slot-empty"></div>'
 
@@ -433,6 +443,7 @@ if st.session_state.squeue_raw_data:
                 y="Unique_Job_Label", color="USER", hover_name="NAME",
                 text="GPU_Count",
                 hover_data={"JOBID":True, "Elapsed_Hours":":.2f", "USER":True},
+                color_discrete_sequence=APP_COLORS
             )
             gantt_height = max(500, len(df) * 35)
             fig_user_gantt.update_layout(height=gantt_height, showlegend=True, 
@@ -451,7 +462,8 @@ if st.session_state.squeue_raw_data:
                 top_20_df, x='Elapsed_Hours', y='Unique_Job_Label', color='USER',
                 orientation='h', text='Elapsed_Hours',
                 labels={'Elapsed_Hours': 'Run Time (Hours)', 'Unique_Job_Label': 'Job'},
-                title="<b>Active Cluster Retention Ranking</b>"
+                title="<b>Active Cluster Retention Ranking</b>",
+                color_discrete_sequence=APP_COLORS
             )
             fig_rank.update_traces(texttemplate='%{text:.1f}h', textposition='outside')
             fig_rank.update_layout(height=700, yaxis={'categoryorder':'total ascending'},
@@ -465,7 +477,8 @@ if st.session_state.squeue_raw_data:
             fig_bubble = px.scatter(
                 df, x="Elapsed_Hours", y="GPU_Count", size="CPUS", color="USER",
                 hover_name="Unique_Job_Label", size_max=60,
-                labels={'Elapsed_Hours': 'Elapsed Hours', 'GPU_Count': 'Allocated GPUs', 'CPUS': 'CPU Allocation'}
+                labels={'Elapsed_Hours': 'Elapsed Hours', 'GPU_Count': 'Allocated GPUs', 'CPUS': 'CPU Allocation'},
+                color_discrete_sequence=APP_COLORS
             )
             fig_bubble.update_layout(height=600, font=dict(size=14, family="Google Sans Flex"))
             st.plotly_chart(fig_bubble, use_container_width=True)
