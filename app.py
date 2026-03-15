@@ -180,6 +180,8 @@ if 'squeue_raw_data' not in st.session_state:
     st.session_state.squeue_raw_data = None
 if 'last_update' not in st.session_state:
     st.session_state.last_update = None
+if 'color_seed' not in st.session_state:
+    st.session_state.color_seed = 0
 
 # --- Connection Configuration handled dynamically ---
 
@@ -230,8 +232,8 @@ APP_COLORS = [
 
 def get_stable_color(identifier):
     """Returns a consistent color dict for a given string/ID."""
-    # Deterministic hash to avoid randomization
-    hash_val = sum(ord(c) for c in str(identifier))
+    # Deterministic hash to avoid randomization, influenced by session seed
+    hash_val = sum(ord(c) for c in str(identifier)) + st.session_state.color_seed
     return APP_COLORS[hash_val % len(APP_COLORS)]
 
 # --- Hardware Specification Registry ---
@@ -309,6 +311,10 @@ if st.sidebar.button("Fetch Live Data", use_container_width=True):
             st.session_state.squeue_raw_data = raw_data
             st.session_state.last_update = time.strftime('%Y-%m-%d %H:%M:%S')
             st.sidebar.success("Data Fetched Successfully")
+
+if st.sidebar.button("Reshuffle Dashboard Colors", use_container_width=True):
+    st.session_state.color_seed += 1
+    st.rerun()
 
 st.sidebar.markdown("---")
 st.sidebar.header("Quick Navigation")
