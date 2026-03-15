@@ -186,56 +186,53 @@ if 'last_update' not in st.session_state:
 # --- Premium Color Palette (High contrast for white text) ---
 # --- Premium Color Palette (With Dynamic Text Contrast) ---
 APP_COLORS = [
-    # --- Light/Medium Tones (Black Text) ---
-    {"bg": "#FFEB3B", "fg": "#000000"}, # Yellow
-    {"bg": "#FFC107", "fg": "#000000"}, # Amber
-    {"bg": "#FF9800", "fg": "#000000"}, # Orange
-    {"bg": "#FFB74D", "fg": "#000000"}, # Light Orange
-    {"bg": "#00BCD4", "fg": "#000000"}, # Cyan
-    {"bg": "#8BC34A", "fg": "#000000"}, # Light Green
-    {"bg": "#CDDC39", "fg": "#000000"}, # Lime
-    {"bg": "#DCE775", "fg": "#000000"}, # Bright Lime
-    {"bg": "#90CAF9", "fg": "#000000"}, # Light Blue
-    {"bg": "#BBDEFB", "fg": "#000000"}, # Pale Blue
-    {"bg": "#F48FB1", "fg": "#000000"}, # Pink
-    {"bg": "#F06292", "fg": "#000000"}, # Medium Pink
-    {"bg": "#FFAB91", "fg": "#000000"}, # Deep Orange (Light)
-    {"bg": "#B2DFDB", "fg": "#000000"}, # Teal (Light)
-    {"bg": "#C8E6C9", "fg": "#000000"}, # Green (Light)
-    {"bg": "#E1BEE7", "fg": "#000000"}, # Purple (Light)
-    {"bg": "#FFE082", "fg": "#000000"}, # Amber (Light)
-    {"bg": "#81D4FA", "fg": "#000000"}, # Light Blue (Sky)
-    {"bg": "#A5D6A7", "fg": "#000000"}, # Green (Pale)
-    {"bg": "#B39DDB", "fg": "#000000"}, # Deep Purple (Light)
-    
-    # --- Dark Tones (White Text) ---
     {"bg": "#B71C1C", "fg": "#FFFFFF"}, # Deep Red
-    {"bg": "#D32F2F", "fg": "#FFFFFF"}, # Red
-    {"bg": "#C2185B", "fg": "#FFFFFF"}, # Deep Pink
-    {"bg": "#880E4F", "fg": "#FFFFFF"}, # Pink (Dark)
-    {"bg": "#4A148C", "fg": "#FFFFFF"}, # Purple
-    {"bg": "#7B1FA2", "fg": "#FFFFFF"}, # Purple (Dark)
-    {"bg": "#311B92", "fg": "#FFFFFF"}, # Deep Purple
-    {"bg": "#1A237E", "fg": "#FFFFFF"}, # Indigo
-    {"bg": "#3F51B5", "fg": "#FFFFFF"}, # Indigo (Standard)
+    {"bg": "#FFEB3B", "fg": "#000000"}, # Yellow
     {"bg": "#0D47A1", "fg": "#FFFFFF"}, # Dark Blue
-    {"bg": "#1976D2", "fg": "#FFFFFF"}, # Blue
-    {"bg": "#01579B", "fg": "#FFFFFF"}, # Deep Blue
-    {"bg": "#006064", "fg": "#FFFFFF"}, # Dark Teal
-    {"bg": "#004D40", "fg": "#FFFFFF"}, # Deep Teal
+    {"bg": "#FFC107", "fg": "#000000"}, # Amber
     {"bg": "#1B5E20", "fg": "#FFFFFF"}, # Dark Green
-    {"bg": "#2E7D32", "fg": "#FFFFFF"}, # Green
+    {"bg": "#00BCD4", "fg": "#000000"}, # Cyan
+    {"bg": "#4A148C", "fg": "#FFFFFF"}, # Purple
+    {"bg": "#8BC34A", "fg": "#000000"}, # Light Green
     {"bg": "#E65100", "fg": "#FFFFFF"}, # Deep Orange
-    {"bg": "#BF360C", "fg": "#FFFFFF"}, # Vermillion
+    {"bg": "#CDDC39", "fg": "#000000"}, # Lime
+    {"bg": "#311B92", "fg": "#FFFFFF"}, # Deep Purple
+    {"bg": "#90CAF9", "fg": "#000000"}, # Light Blue
+    {"bg": "#C2185B", "fg": "#FFFFFF"}, # Deep Pink
+    {"bg": "#F48FB1", "fg": "#000000"}, # Pink
     {"bg": "#3E2723", "fg": "#FFFFFF"}, # Dark Brown
-    {"bg": "#5D4037", "fg": "#FFFFFF"}, # Brown
-    {"bg": "#263238", "fg": "#FFFFFF"}, # Blue Grey (Dark)
-    {"bg": "#37474F", "fg": "#FFFFFF"}, # Slate
+    {"bg": "#FF9800", "fg": "#000000"}, # Orange
+    {"bg": "#1A237E", "fg": "#FFFFFF"}, # Indigo
+    {"bg": "#BBDEFB", "fg": "#000000"}, # Pale Blue
+    {"bg": "#004D40", "fg": "#FFFFFF"}, # Deep Teal
+    {"bg": "#DCE775", "fg": "#000000"}, # Bright Lime
+    {"bg": "#880E4F", "fg": "#FFFFFF"}, # Pink (Dark)
+    {"bg": "#FFAB91", "fg": "#000000"}, # Deep Orange (Light)
+    {"bg": "#2E7D32", "fg": "#FFFFFF"}, # Green
+    {"bg": "#B2DFDB", "fg": "#000000"}, # Teal (Light)
+    {"bg": "#1565C0", "fg": "#FFFFFF"}, # Blue
+    {"bg": "#C8E6C9", "fg": "#000000"}, # Green (Light)
+    {"bg": "#BF360C", "fg": "#FFFFFF"}, # Vermillion
+    {"bg": "#E1BEE7", "fg": "#000000"}, # Purple (Light)
     {"bg": "#33691E", "fg": "#FFFFFF"}, # Olive (Dark)
+    {"bg": "#FFE082", "fg": "#000000"}, # Amber (Light)
+    {"bg": "#006064", "fg": "#FFFFFF"}, # Dark Teal
+    {"bg": "#81D4FA", "fg": "#000000"}, # Light Blue (Sky)
     {"bg": "#4E342E", "fg": "#FFFFFF"}, # Coffee
-    {"bg": "#212121", "fg": "#FFFFFF"}  # Near Black
+    {"bg": "#A5D6A7", "fg": "#000000"}, # Green (Pale)
+    {"bg": "#263238", "fg": "#FFFFFF"}, # Blue Grey (Dark)
+    {"bg": "#B39DDB", "fg": "#000000"}, # Deep Purple (Light)
+    {"bg": "#AD1457", "fg": "#FFFFFF"}, # Pink (Darker)
+    {"bg": "#F06292", "fg": "#000000"}, # Medium Pink
+    {"bg": "#0277BD", "fg": "#FFFFFF"}, # Blue (Darker)
+    {"bg": "#FFB74D", "fg": "#000000"}  # Light Orange
 ]
-PLOTLY_COLORS = [c["bg"] for c in APP_COLORS]
+
+def get_stable_color(identifier):
+    """Returns a consistent color dict for a given string/ID."""
+    # Deterministic hash to avoid randomization
+    hash_val = sum(ord(c) for c in str(identifier))
+    return APP_COLORS[hash_val % len(APP_COLORS)]
 
 # --- Hardware Specification Registry ---
 NODE_CONFIG = {
@@ -381,18 +378,18 @@ if st.session_state.squeue_raw_data:
 
             st.markdown("---")
 
-            # SECTION 1: RESOURCE OVERVIEW
-            st.header("Resource Overview", anchor="resource-overview")
-            user_node_df = df.groupby(['USER', 'NODELIST'])['GPU_Count'].sum().reset_index()
-            user_node_df = user_node_df[user_node_df['GPU_Count'] > 0]
-            user_total_order = user_node_df.groupby('USER')['GPU_Count'].sum().sort_values(ascending=False).index.tolist()
-            
+            # Create deterministic color map for Plotly to ensure persistence
+            unique_users = df['USER'].unique()
+            node_ids = list(NODE_CONFIG.keys())
+            user_color_map = {u: get_stable_color(u)["bg"] for u in unique_users}
+            node_color_map = {n: get_stable_color(n)["bg"] for n in node_ids}
+
             fig_bar = px.bar(
                 user_node_df, x='USER', y='GPU_Count', color='NODELIST',
                 labels={'GPU_Count': '<b>GPU Count</b>', 'USER': '<b>User Name</b>'},
                 category_orders={'USER': user_total_order},
                 text='GPU_Count',
-                color_discrete_sequence=PLOTLY_COLORS
+                color_discrete_map=node_color_map
             )
             fig_bar.update_layout(barmode='stack', height=400, margin=dict(t=30, b=20),
                                     font=dict(size=14, family="Google Sans Flex"))
@@ -469,7 +466,7 @@ if st.session_state.squeue_raw_data:
                 for slot in current_slots:
                     if slot:
                         user, jobid, runtime = slot
-                        color_data = APP_COLORS[hash(str(jobid)) % len(APP_COLORS)]
+                        color_data = get_stable_color(jobid)
                         bg_color = color_data["bg"]
                         text_color = color_data["fg"]
                         # Build compact slot HTML with dynamic text color
@@ -491,7 +488,7 @@ if st.session_state.squeue_raw_data:
                 y="Unique_Job_Label", color="USER", hover_name="NAME",
                 text="GPU_Count",
                 hover_data={"JOBID":True, "Elapsed_Hours":":.2f", "USER":True},
-                color_discrete_sequence=PLOTLY_COLORS
+                color_discrete_map=user_color_map
             )
             gantt_height = max(500, len(df) * 35)
             fig_user_gantt.update_layout(height=gantt_height, showlegend=True, 
@@ -511,7 +508,7 @@ if st.session_state.squeue_raw_data:
                 orientation='h', text='Elapsed_Hours',
                 labels={'Elapsed_Hours': 'Run Time (Hours)', 'Unique_Job_Label': 'Job'},
                 title="<b>Active Cluster Retention Ranking</b>",
-                color_discrete_sequence=PLOTLY_COLORS
+                color_discrete_map=user_color_map
             )
             fig_rank.update_traces(texttemplate='%{text:.1f}h', textposition='outside')
             fig_rank.update_layout(height=700, yaxis={'categoryorder':'total ascending'},
@@ -526,7 +523,7 @@ if st.session_state.squeue_raw_data:
                 df, x="Elapsed_Hours", y="GPU_Count", size="CPUS", color="USER",
                 hover_name="Unique_Job_Label", size_max=60,
                 labels={'Elapsed_Hours': 'Elapsed Hours', 'GPU_Count': 'Allocated GPUs', 'CPUS': 'CPU Allocation'},
-                color_discrete_sequence=PLOTLY_COLORS
+                color_discrete_map=user_color_map
             )
             fig_bubble.update_layout(height=600, font=dict(size=14, family="Google Sans Flex"))
             st.plotly_chart(fig_bubble, use_container_width=True)
