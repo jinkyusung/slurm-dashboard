@@ -295,7 +295,7 @@ st.sidebar.markdown("""
 - [Density Analysis](#density)
 """)
 # Push logout button to the bottom
-st.sidebar.markdown("<br>" * 10, unsafe_allow_html=True)
+st.sidebar.markdown("<br>" * 6, unsafe_allow_html=True)
 
 if st.sidebar.button("Logout", type="primary", use_container_width=True):
     cookies["authenticated"] = "false"
