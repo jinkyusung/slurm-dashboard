@@ -186,26 +186,54 @@ if 'last_update' not in st.session_state:
 # --- Premium Color Palette (High contrast for white text) ---
 # --- Premium Color Palette (With Dynamic Text Contrast) ---
 APP_COLORS = [
-    {"bg": "#FFEB3B", "fg": "#000000"}, # Bright Yellow
+    # --- Light/Medium Tones (Black Text) ---
+    {"bg": "#FFEB3B", "fg": "#000000"}, # Yellow
     {"bg": "#FFC107", "fg": "#000000"}, # Amber
+    {"bg": "#FF9800", "fg": "#000000"}, # Orange
+    {"bg": "#FFB74D", "fg": "#000000"}, # Light Orange
     {"bg": "#00BCD4", "fg": "#000000"}, # Cyan
     {"bg": "#8BC34A", "fg": "#000000"}, # Light Green
     {"bg": "#CDDC39", "fg": "#000000"}, # Lime
+    {"bg": "#DCE775", "fg": "#000000"}, # Bright Lime
     {"bg": "#90CAF9", "fg": "#000000"}, # Light Blue
+    {"bg": "#BBDEFB", "fg": "#000000"}, # Pale Blue
     {"bg": "#F48FB1", "fg": "#000000"}, # Pink
+    {"bg": "#F06292", "fg": "#000000"}, # Medium Pink
+    {"bg": "#FFAB91", "fg": "#000000"}, # Deep Orange (Light)
+    {"bg": "#B2DFDB", "fg": "#000000"}, # Teal (Light)
+    {"bg": "#C8E6C9", "fg": "#000000"}, # Green (Light)
+    {"bg": "#E1BEE7", "fg": "#000000"}, # Purple (Light)
+    {"bg": "#FFE082", "fg": "#000000"}, # Amber (Light)
+    {"bg": "#81D4FA", "fg": "#000000"}, # Light Blue (Sky)
+    {"bg": "#A5D6A7", "fg": "#000000"}, # Green (Pale)
+    {"bg": "#B39DDB", "fg": "#000000"}, # Deep Purple (Light)
+    
+    # --- Dark Tones (White Text) ---
     {"bg": "#B71C1C", "fg": "#FFFFFF"}, # Deep Red
-    {"bg": "#0D47A1", "fg": "#FFFFFF"}, # Dark Blue
-    {"bg": "#1B5E20", "fg": "#FFFFFF"}, # Dark Green
-    {"bg": "#E65100", "fg": "#FFFFFF"}, # Deep Orange
-    {"bg": "#4A148C", "fg": "#FFFFFF"}, # Purple
-    {"bg": "#37474F", "fg": "#FFFFFF"}, # Blue Grey
-    {"bg": "#006064", "fg": "#FFFFFF"}, # Teal
-    {"bg": "#3E2723", "fg": "#FFFFFF"}, # Dark Brown
+    {"bg": "#D32F2F", "fg": "#FFFFFF"}, # Red
+    {"bg": "#C2185B", "fg": "#FFFFFF"}, # Deep Pink
     {"bg": "#880E4F", "fg": "#FFFFFF"}, # Pink (Dark)
+    {"bg": "#4A148C", "fg": "#FFFFFF"}, # Purple
+    {"bg": "#7B1FA2", "fg": "#FFFFFF"}, # Purple (Dark)
+    {"bg": "#311B92", "fg": "#FFFFFF"}, # Deep Purple
     {"bg": "#1A237E", "fg": "#FFFFFF"}, # Indigo
+    {"bg": "#3F51B5", "fg": "#FFFFFF"}, # Indigo (Standard)
+    {"bg": "#0D47A1", "fg": "#FFFFFF"}, # Dark Blue
+    {"bg": "#1976D2", "fg": "#FFFFFF"}, # Blue
+    {"bg": "#01579B", "fg": "#FFFFFF"}, # Deep Blue
+    {"bg": "#006064", "fg": "#FFFFFF"}, # Dark Teal
     {"bg": "#004D40", "fg": "#FFFFFF"}, # Deep Teal
-    {"bg": "#263238", "fg": "#FFFFFF"}, # Slate
-    {"bg": "#33691E", "fg": "#FFFFFF"}  # Olive (Dark)
+    {"bg": "#1B5E20", "fg": "#FFFFFF"}, # Dark Green
+    {"bg": "#2E7D32", "fg": "#FFFFFF"}, # Green
+    {"bg": "#E65100", "fg": "#FFFFFF"}, # Deep Orange
+    {"bg": "#BF360C", "fg": "#FFFFFF"}, # Vermillion
+    {"bg": "#3E2723", "fg": "#FFFFFF"}, # Dark Brown
+    {"bg": "#5D4037", "fg": "#FFFFFF"}, # Brown
+    {"bg": "#263238", "fg": "#FFFFFF"}, # Blue Grey (Dark)
+    {"bg": "#37474F", "fg": "#FFFFFF"}, # Slate
+    {"bg": "#33691E", "fg": "#FFFFFF"}, # Olive (Dark)
+    {"bg": "#4E342E", "fg": "#FFFFFF"}, # Coffee
+    {"bg": "#212121", "fg": "#FFFFFF"}  # Near Black
 ]
 PLOTLY_COLORS = [c["bg"] for c in APP_COLORS]
 
