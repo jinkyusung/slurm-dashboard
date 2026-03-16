@@ -109,7 +109,7 @@ st.markdown("""
     [data-testid="stSidebarContent"] .stHeader,
     [data-testid="stSidebarContent"] .stButton {
         margin-top: 0 !important;
-        margin-bottom: 0.4rem !important; /* Very tight vertical gaps */
+        margin-bottom: 0.0rem !important; /* Very tight vertical gaps */
     }
 
     [data-testid="stSidebarContent"] h2, 
