@@ -409,15 +409,14 @@ if st.session_state.squeue_raw_data:
                     display: flex;
                     flex-wrap: wrap;
                     align-items: flex-start;
+                    gap: 10px 15px; /* Vertical gap for wrapped items, horizontal gap for columns */
                     background-color: transparent;
-                    padding: 15px 0;
+                    padding: 8px 0;
                     border-bottom: 1px solid rgba(128, 128, 128, 0.2);
                 }
                 .node-info {
                     width: 120px;
                     flex-shrink: 0;
-                    margin-right: 15px;
-                    margin-bottom: 15px;
                 }
                 .slots-wrapper {
                     display: flex;
