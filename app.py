@@ -100,27 +100,27 @@ st.markdown("""
         opacity: 1 !important;
     }
 
-    /* Symmetrical Divider & Element Spacing */
+    /* Tight Sidebar Layout to Minimize Scrolling */
     [data-testid="stSidebarContent"] {
-        padding: 1.5rem 1rem !important;
+        padding: 0.5rem 0.8rem !important; /* Reduced top/side padding */
     }
     
-    /* 
-       To make the divider (hr) perfectly symmetrical:
-       1. All elements have margin-top: 0 and margin-bottom: X
-       2. The divider (hr) also has margin-top: 0 and margin-bottom: X
-       This ensures there is exactly 'X' space above and below the line.
-    */
     [data-testid="stSidebarContent"] .stMarkdown, 
     [data-testid="stSidebarContent"] .stHeader,
     [data-testid="stSidebarContent"] .stButton {
         margin-top: 0 !important;
-        margin-bottom: 0.8rem !important;
+        margin-bottom: 0.4rem !important; /* Very tight vertical gaps */
+    }
+
+    [data-testid="stSidebarContent"] h2, 
+    [data-testid="stSidebarContent"] h3 {
+        margin-bottom: 0.2rem !important; /* Even tighter for headers */
+        padding-top: 0.2rem !important;
     }
     
     [data-testid="stSidebarContent"] hr {
         margin-top: 0 !important;
-        margin-bottom: 0.8rem !important;
+        margin-bottom: 0.4rem !important; /* Symmetric gap with elements */
         border: none;
         border-top: 1px solid rgba(128, 128, 128, 0.2);
     }
