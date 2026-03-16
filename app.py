@@ -337,7 +337,7 @@ if st.sidebar.button("Fetch Live Data", use_container_width=True):
         if raw_data is not None:
             st.session_state.squeue_raw_data = raw_data
             st.session_state.last_update = datetime.now(KST).strftime('%Y-%m-%d %H:%M:%S')
-            st.sidebar.success("Data Fetched Successfully")
+            # Removed st.sidebar.success from here
 
 if st.sidebar.button("Reshuffle Dashboard Colors", use_container_width=True):
     st.session_state.color_seed += 1
@@ -373,6 +373,7 @@ if st.sidebar.button("Logout", type="primary", use_container_width=True):
 # --- Main Dashboard Rendering ---
 if st.session_state.squeue_raw_data:
     st.info(f"Last Synchronization Time (KST): {st.session_state.last_update}")
+    st.success("Data Fetched Successfully")
     
     if not st.session_state.squeue_raw_data.strip():
         st.warning("No active jobs currently running in the cluster.")
