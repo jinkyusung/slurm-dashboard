@@ -353,7 +353,7 @@ st.sidebar.markdown("""
 - [Density Analysis](#density)
 """)
 
-st.sidebar.markdown("---") # Divider between Nav and Logout
+st.sidebar.markdown("---<br>") # Divider between Nav and Logout
 
 if st.sidebar.button("Logout", type="primary", use_container_width=True):
     cookies["authenticated"] = "false"
