@@ -509,7 +509,7 @@ if st.session_state.squeue_raw_data:
             st.markdown("---")
 
             # SECTION 4: LONG-RUNNING RANKING
-            st.header("Longest Running Jobs (TOP 20)", anchor="ranking")
+            st.header("Time Spending (TOP 20)", anchor="ranking")
             top_20_df = df.sort_values(by='Elapsed_Hours', ascending=False).head(20)
             fig_rank = px.bar(
                 top_20_df, x='Elapsed_Hours', y='Unique_Job_Label', color='USER',
