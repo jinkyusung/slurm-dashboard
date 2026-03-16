@@ -82,22 +82,15 @@ st.markdown("""
     /* Divider Styling */
     hr { margin: 2rem 0 !important; border-top: 1px solid rgba(128, 128, 128, 0.2) !important; }
 
-    /* Sidebar Opaque Background Fix - Using solid hex colors to ensure 0% transparency */
-    section[data-testid="stSidebar"] > div:first-child {
-        background-color: #f0f2f6 !important; /* Standard Light Gray */
-    }
-    
-    /* For Dark Mode users, we'll try to match the theme but keep it opaque */
-    @media (prefers-color-scheme: dark) {
-        section[data-testid="stSidebar"] > div:first-child {
-            background-color: #1a1c24 !important; /* Dark Gray */
-        }
-    }
-
-    [data-testid="stSidebar"] {
-        background-color: #f0f2f6 !important;
+    /* Fixed Dynamic Opaque Sidebar */
+    section[data-testid="stSidebar"] > div:first-child,
+    [data-testid="stSidebar"],
+    [data-testid="stSidebarContent"] {
+        background-color: var(--secondary-background-color) !important;
+        background-image: none !important;
         opacity: 1 !important;
     }
+
 
     /* Tight Sidebar Layout to Minimize Scrolling */
     [data-testid="stSidebarContent"] {
