@@ -100,20 +100,27 @@ st.markdown("""
         opacity: 1 !important;
     }
 
-    /* Reduce Sidebar Padding & Spacing */
+    /* Standardized Sidebar Spacing */
     [data-testid="stSidebarContent"] {
         padding: 1.5rem 1rem !important;
     }
+    
+    /* Ensure all blocks have a consistent gap */
     [data-testid="stSidebarContent"] .stMarkdown, 
     [data-testid="stSidebarContent"] .stHeader,
     [data-testid="stSidebarContent"] .stButton {
-        margin-bottom: -0.5rem !important; /* Tighten up the gaps */
+        margin-bottom: 0.75rem !important;
+        margin-top: 0 !important;
     }
+    
+    /* Center dividers with equal top/bottom margin */
     [data-testid="stSidebarContent"] hr {
-        margin: 1rem 0 !important;
+        margin: 1.25rem 0 !important;
+        opacity: 0.5;
     }
     </style>
     """, unsafe_allow_html=True)
+
 
 
 def validate_ssh_credentials(host, port, username, password):
