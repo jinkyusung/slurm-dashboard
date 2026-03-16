@@ -45,17 +45,13 @@ st.markdown("""
         font-family: 'Google Sans Flex', sans-serif !important;
     }
     
-    /* 3. Fixed width for 2/3 of 16:9 screen (1280px) and Horizontal Scroll */
-    [data-testid="stAppViewContainer"] {
-        overflow-x: auto !important;
-    }
-    
+    /* 3. Fully Responsive Full Width Layout */
     [data-testid="stMainBlockContainer"] {
-        min-width: 1000px !important;
-        max-width: 1000px !important;
+        width: 100% !important;
+        max-width: 100% !important;
         margin: 0 auto !important;
-        padding-left: 2rem !important;
-        padding-right: 2rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
     }
 
     .stApp {
@@ -411,20 +407,24 @@ if st.session_state.squeue_raw_data:
                 }
                 .node-row {
                     display: flex;
-                    align-items: center;
+                    flex-wrap: wrap;
+                    align-items: flex-start;
                     background-color: transparent;
-                    padding: 10px 0;
+                    padding: 15px 0;
                     border-bottom: 1px solid rgba(128, 128, 128, 0.2);
                 }
                 .node-info {
-                    width: 100px;
+                    width: 120px;
                     flex-shrink: 0;
-                    margin-right: 10px;
+                    margin-right: 15px;
+                    margin-bottom: 15px;
                 }
                 .slots-wrapper {
                     display: flex;
-                    gap: 4px;
+                    flex-wrap: wrap;
+                    gap: 6px;
                     flex-grow: 1;
+                    min-width: 300px; /* Ensure it has enough room to be useful */
                 }
                 .gpu-slot {
                     width: 78px;
