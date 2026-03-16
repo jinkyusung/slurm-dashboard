@@ -353,7 +353,8 @@ st.sidebar.markdown("""
 - [Density Analysis](#density)
 """)
 
-st.sidebar.markdown("---\n") # Divider between Nav and Logout
+st.sidebar.markdown("---") # Divider between Nav and Logout
+st.sidebar.markdown("<div style='height: 1rem;'></div>", unsafe_allow_html=True) # Added blank space
 
 if st.sidebar.button("Logout", type="primary", use_container_width=True):
     cookies["authenticated"] = "false"
