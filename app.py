@@ -329,7 +329,7 @@ def parse_gpu_count(tres_str):
 
 # --- Sidebar: Integration Control ---
 st.sidebar.header("Control Panel")
-st.sidebar.info(f"Target Host: {HOST}\n  User: {USERNAME}")
+st.sidebar.info(f"Target Host: {HOST}  \nUser: {USERNAME}")
 
 if st.sidebar.button("Fetch Live Data", use_container_width=True):
     with st.spinner("Connecting to cluster and fetching squeue data..."):
