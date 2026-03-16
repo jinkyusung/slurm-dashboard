@@ -83,11 +83,12 @@ st.markdown("""
     /* Divider Styling */
     hr { margin: 2rem 0 !important; border-top: 1px solid rgba(128, 128, 128, 0.2) !important; }
 
-    /* Sidebar Background & Mobile Opacity Fix */
-    section[data-testid="stSidebar"] {
+    /* Sidebar Background & Mobile Opacity Fix - Solid background to prevent content overlap */
+    [data-testid="stSidebar"], [data-testid="stSidebarContent"] {
         background-color: var(--secondary-background-color) !important;
+        background-image: none !important;
+        opacity: 1 !important;
     }
-
     </style>
     """, unsafe_allow_html=True)
 
