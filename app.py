@@ -100,26 +100,33 @@ st.markdown("""
         opacity: 1 !important;
     }
 
-    /* Standardized Sidebar Spacing */
+    /* Symmetrical Divider & Element Spacing */
     [data-testid="stSidebarContent"] {
         padding: 1.5rem 1rem !important;
     }
     
-    /* Ensure all blocks have a consistent gap */
+    /* 
+       To make the divider (hr) perfectly symmetrical:
+       1. All elements have margin-top: 0 and margin-bottom: X
+       2. The divider (hr) also has margin-top: 0 and margin-bottom: X
+       This ensures there is exactly 'X' space above and below the line.
+    */
     [data-testid="stSidebarContent"] .stMarkdown, 
     [data-testid="stSidebarContent"] .stHeader,
     [data-testid="stSidebarContent"] .stButton {
-        margin-bottom: 0.75rem !important;
         margin-top: 0 !important;
+        margin-bottom: 0.8rem !important;
     }
     
-    /* Center dividers with equal top/bottom margin */
     [data-testid="stSidebarContent"] hr {
-        margin: 1.25rem 0 !important;
-        opacity: 0.5;
+        margin-top: 0 !important;
+        margin-bottom: 0.8rem !important;
+        border: none;
+        border-top: 1px solid rgba(128, 128, 128, 0.2);
     }
     </style>
     """, unsafe_allow_html=True)
+
 
 
 
