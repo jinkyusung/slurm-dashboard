@@ -45,13 +45,12 @@ st.markdown("""
         font-family: 'Google Sans Flex', sans-serif !important;
     }
     
-    /* 3. Fully Responsive Full Width Layout */
+    /* 3. Responsive Centered Layout */
     [data-testid="stMainBlockContainer"] {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 auto !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
+        max-width: 1400px !important;
+        margin-right: auto !important;
+        margin-left: auto !important;
+        padding: 5rem 2rem !important;
     }
 
     .stApp {
