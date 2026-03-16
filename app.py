@@ -29,7 +29,7 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap');
 
-    /* 메인 콘텐츠 폰트 적용 */
+    /* 1. Explicitly target MAIN content only, avoiding sidebar & icons */
     [data-testid="stMainBlockContainer"] h1, 
     [data-testid="stMainBlockContainer"] h2, 
     [data-testid="stMainBlockContainer"] h3,
@@ -40,11 +40,12 @@ st.markdown("""
         font-family: 'Google Sans Flex', sans-serif !important;
     }
 
+    /* 2. Global Metric Label Tuning */
     [data-testid="stMetricLabel"] {
         font-family: 'Google Sans Flex', sans-serif !important;
     }
     
-    /* 중앙 정렬 레이아웃 */
+    /* 3. Responsive Centered Layout */
     [data-testid="stMainBlockContainer"] {
         max-width: 1400px !important;
         margin-right: auto !important;
@@ -56,12 +57,12 @@ st.markdown("""
         font-size: 1.05rem;
     }
 
-    /* 메인 화면 헤더 스타일링 */
+    /* Headings Styling (Main only) */
     h1 { font-size: 2.22rem !important; font-weight: 700 !important; color: var(--text-color); }
     h2 { font-size: 1.8rem !important; font-weight: 700 !important; color: var(--text-color); opacity: 0.9; margin-top: 2rem !important; }
     h3 { font-size: 1.3rem !important; font-weight: 600 !important; color: var(--text-color); opacity: 0.8; }
 
-    /* 로그인 페이지 디자인 */
+    /* Login Page Aesthetics */
     .login-container {
         display: flex;
         justify-content: center;
@@ -78,68 +79,48 @@ st.markdown("""
         border: 1px solid rgba(128, 128, 128, 0.2);
     }
 
+    /* Divider Styling */
     hr { margin: 2rem 0 !important; border-top: 1px solid rgba(128, 128, 128, 0.2) !important; }
 
-    /* =========================================
-       사이드바 강제 고정 (투명도 완벽 제거)
-       ========================================= */
-    section[data-testid="stSidebar"],
-    section[data-testid="stSidebar"] > div,
-    [data-testid="stSidebarHeader"] {
-        background-color: #22262F !important; /* 라이트/다크 모두 어울리는 솔리드 다크톤 */
-        background-image: none !important;
-        z-index: 999999 !important;
-        box-shadow: 4px 0 20px rgba(0,0,0,0.4) !important;
-    }
-
-    /* 사이드바 내부 텍스트 강제 흰색 처리 (라이트모드 대비) */
-    section[data-testid="stSidebar"] p,
-    section[data-testid="stSidebar"] h1,
-    section[data-testid="stSidebar"] h2,
-    section[data-testid="stSidebar"] h3,
-    section[data-testid="stSidebar"] span,
-    section[data-testid="stSidebar"] div.stMarkdown {
-        color: #F0F2F6 !important;
-    }
-
-    /* 사이드바 내부 버튼 스타일 고정 */
-    section[data-testid="stSidebar"] .stButton > button {
-        background-color: #3B3F4A !important;
-        color: #FFFFFF !important;
-        border: 1px solid #5A5E6A !important;
-    }
-
-    section[data-testid="stSidebar"] .stButton > button:hover {
-        background-color: #4A4E5A !important;
-        border-color: #FFFFFF !important;
-    }
-
-    /* 사이드바 여백 축소 */
+    /* Robust Dynamic & Opaque Sidebar - No more OS-level color scheme overrides */
+    [data-testid="stSidebar"], 
+    [data-testid="stSidebar"] > div:first-child,
     [data-testid="stSidebarContent"] {
-        padding: 0.5rem 0.8rem !important; 
+        background-color: var(--secondary-background-color) !important;
+        opacity: 1 !important;
+        backdrop-filter: none !important; /* Removes any mobile blur transparency */
+    }
+
+
+
+
+    /* Tight Sidebar Layout to Minimize Scrolling */
+    [data-testid="stSidebarContent"] {
+        padding: 0.0rem 0.8rem !important; /* Reduced top/side padding */
     }
     
     [data-testid="stSidebarContent"] .stMarkdown, 
     [data-testid="stSidebarContent"] .stHeader,
     [data-testid="stSidebarContent"] .stButton {
         margin-top: 0 !important;
-        margin-bottom: 0.2rem !important; 
+        margin-bottom: 0.0rem !important; /* Very tight vertical gaps */
     }
 
     [data-testid="stSidebarContent"] h2, 
     [data-testid="stSidebarContent"] h3 {
-        margin-bottom: 0.2rem !important; 
+        margin-bottom: 0.2rem !important; /* Even tighter for headers */
         padding-top: 0.2rem !important;
     }
     
     [data-testid="stSidebarContent"] hr {
-        margin-top: 0.5rem !important;
-        margin-bottom: 0.5rem !important; 
+        margin-top: 0 !important;
+        margin-bottom: 0.4rem !important; /* Symmetric gap with elements */
         border: none;
-        border-top: 1px solid rgba(255, 255, 255, 0.1); /* 다크톤에 맞춘 구분선 */
+        border-top: 1px solid rgba(128, 128, 128, 0.2);
     }
     </style>
     """, unsafe_allow_html=True)
+
 
 
 
