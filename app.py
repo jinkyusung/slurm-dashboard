@@ -102,7 +102,7 @@ st.markdown("""
 
     /* Tight Sidebar Layout to Minimize Scrolling */
     [data-testid="stSidebarContent"] {
-        padding: 0.5rem 0.8rem !important; /* Reduced top/side padding */
+        padding: 0.0rem 0.8rem !important; /* Reduced top/side padding */
     }
     
     [data-testid="stSidebarContent"] .stMarkdown, 
