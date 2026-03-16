@@ -83,10 +83,11 @@ st.markdown("""
     /* Divider Styling */
     hr { margin: 2rem 0 !important; border-top: 1px solid rgba(128, 128, 128, 0.2) !important; }
 
-    /* Sidebar Background (Support Light/Dark) */
+    /* Sidebar Background & Mobile Opacity Fix */
     section[data-testid="stSidebar"] {
-        background-color: rgba(128, 128, 128, 0.05); /* Very subtle tint */
+        background-color: var(--secondary-background-color) !important;
     }
+
     </style>
     """, unsafe_allow_html=True)
 
