@@ -99,6 +99,19 @@ st.markdown("""
         background-color: #f0f2f6 !important;
         opacity: 1 !important;
     }
+
+    /* Reduce Sidebar Padding & Spacing */
+    [data-testid="stSidebarContent"] {
+        padding: 1.5rem 1rem !important;
+    }
+    [data-testid="stSidebarContent"] .stMarkdown, 
+    [data-testid="stSidebarContent"] .stHeader,
+    [data-testid="stSidebarContent"] .stButton {
+        margin-bottom: -0.5rem !important; /* Tighten up the gaps */
+    }
+    [data-testid="stSidebarContent"] hr {
+        margin: 1rem 0 !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -325,8 +338,8 @@ st.sidebar.markdown("""
 - [Run Time Ranking](#ranking)
 - [Density Analysis](#density)
 """)
-# Push logout button to the bottom
-st.sidebar.markdown("<br>" * 6, unsafe_allow_html=True)
+
+st.sidebar.markdown("---") # Divider between Nav and Logout
 
 if st.sidebar.button("Logout", type="primary", use_container_width=True):
     cookies["authenticated"] = "false"
