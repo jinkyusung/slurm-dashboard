@@ -408,8 +408,8 @@ if st.session_state.squeue_raw_data:
                 .node-row {
                     display: flex;
                     flex-wrap: wrap;
-                    align-items: flex-start;
-                    gap: 10px 15px; /* Vertical gap for wrapped items, horizontal gap for columns */
+                    align-items: center; /* Vertically center node info with slots */
+                    gap: 10px 15px;
                     background-color: transparent;
                     padding: 8px 0;
                     border-bottom: 1px solid rgba(128, 128, 128, 0.2);
@@ -417,7 +417,13 @@ if st.session_state.squeue_raw_data:
                 .node-info {
                     width: 120px;
                     flex-shrink: 0;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 1px; /* Tight spacing between lines */
                 }
+                .node-info b { line-height: 1.2; }
+                .node-info span { line-height: 1.1; }
                 .slots-wrapper {
                     display: flex;
                     flex-wrap: wrap;
@@ -475,8 +481,8 @@ if st.session_state.squeue_raw_data:
                     else:
                         slots_html += '<div class="gpu-slot-empty"></div>'
 
-                # Render the entire node row using compact HTML to prevent markdown parsing errors
-                node_html = f"""<div class="node-row"><div class="node-info"><b style="font-size:19px; color:var(--text-color);">{node_id.upper()}</b><br><span style="font-size:13px; color:var(--text-color); opacity:0.8; font-weight:500;">{config['gpu']}</span><br><span style="font-size:12px; color:var(--text-color); opacity:0.6;">RAM {config['mem']} / {config['cpu']}C</span></div><div class="slots-wrapper">{slots_html}</div></div>"""
+                # Render the entire node row using flex-based info box for better alignment
+                node_html = f"""<div class="node-row"><div class="node-info"><b style="font-size:19px; color:var(--text-color);">{node_id.upper()}</b><span style="font-size:13px; color:var(--text-color); opacity:0.8; font-weight:500;">{config['gpu']}</span><span style="font-size:12px; color:var(--text-color); opacity:0.6;">RAM {config['mem']} / {config['cpu']}C</span></div><div class="slots-wrapper">{slots_html}</div></div>"""
                 st.markdown(node_html, unsafe_allow_html=True)
 
             st.markdown('<div style="margin-top: 50px;"></div>', unsafe_allow_html=True)
