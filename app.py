@@ -82,30 +82,15 @@ st.markdown("""
     /* Divider Styling */
     hr { margin: 2rem 0 !important; border-top: 1px solid rgba(128, 128, 128, 0.2) !important; }
 
-    /* Fixed Dynamic & Opaque Sidebar - Layering to prevent mobile transparency */
-    section[data-testid="stSidebar"] {
-        background-color: var(--secondary-background-color) !important;
-        opacity: 1 !important;
-    }
-
-    /* Layer a solid background underneath to block content visibility on mobile */
-    section[data-testid="stSidebar"]::before {
-        content: "";
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background-color: #ffffff; /* Solid white for light mode */
-        z-index: -1;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        section[data-testid="stSidebar"]::before {
-            background-color: #0e1117; /* Solid dark for dark mode */
-        }
-    }
-
+    /* Robust Dynamic & Opaque Sidebar - No more OS-level color scheme overrides */
+    [data-testid="stSidebar"], 
+    [data-testid="stSidebar"] > div:first-child,
     [data-testid="stSidebarContent"] {
         background-color: var(--secondary-background-color) !important;
+        opacity: 1 !important;
+        backdrop-filter: none !important; /* Removes any mobile blur transparency */
     }
+
 
 
 
