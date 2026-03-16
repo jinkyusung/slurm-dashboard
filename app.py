@@ -29,7 +29,7 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap');
 
-    /* 1. Explicitly target MAIN content only, avoiding sidebar & icons */
+    /* Explicitly target MAIN content only, avoiding sidebar & icons */
     [data-testid="stMainBlockContainer"] h1, 
     [data-testid="stMainBlockContainer"] h2, 
     [data-testid="stMainBlockContainer"] h3,
@@ -40,12 +40,12 @@ st.markdown("""
         font-family: 'Google Sans Flex', sans-serif !important;
     }
 
-    /* 2. Global Metric Label Tuning */
+    /* Global Metric Label Tuning */
     [data-testid="stMetricLabel"] {
         font-family: 'Google Sans Flex', sans-serif !important;
     }
     
-    /* 3. Responsive Centered Layout */
+    /* Responsive Centered Layout */
     [data-testid="stMainBlockContainer"] {
         max-width: 1400px !important;
         margin-right: auto !important;
@@ -82,17 +82,20 @@ st.markdown("""
     /* Divider Styling */
     hr { margin: 2rem 0 !important; border-top: 1px solid rgba(128, 128, 128, 0.2) !important; }
 
-    /* Robust Dynamic & Opaque Sidebar - Mobile & Light/Dark Mode Safe */
-    [data-testid="stSidebar"] {
+    /* Robust Dynamic & Opaque Sidebar - Aggressive Mobile Fix */
+    section[data-testid="stSidebar"],
+    section[data-testid="stSidebar"] > div,
+    section[data-testid="stSidebar"] > div > div,
+    [data-testid="stSidebarHeader"] {
         background-color: var(--background-color) !important;
-        z-index: 999999 !important; /* 모바일에서 메인 콘텐츠 위로 완전히 덮이도록 강제 */
-    }
-
-    [data-testid="stSidebar"] > div:first-child,
-    [data-testid="stSidebarContent"] {
-        background-color: var(--background-color) !important; /* 투명도가 포함된 secondary-background 대신 완전한 솔리드 컬러 사용 */
+        background-image: none !important;
         opacity: 1 !important;
         backdrop-filter: none !important;
+    }
+
+    section[data-testid="stSidebar"] {
+        z-index: 999999 !important;
+        box-shadow: 2px 0 15px rgba(0,0,0,0.1) !important;
     }
 
     /* Tight Sidebar Layout to Minimize Scrolling */
