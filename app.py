@@ -82,45 +82,45 @@ st.markdown("""
     /* Divider Styling */
     hr { margin: 2rem 0 !important; border-top: 1px solid rgba(128, 128, 128, 0.2) !important; }
 
-    /* Robust Dynamic & Opaque Sidebar - No more OS-level color scheme overrides */
-    [data-testid="stSidebar"], 
-    [data-testid="stSidebar"] > div:first-child,
-    [data-testid="stSidebarContent"] {
-        background-color: var(--secondary-background-color) !important;
-        opacity: 1 !important;
-        backdrop-filter: none !important; /* Removes any mobile blur transparency */
+    /* Robust Dynamic & Opaque Sidebar - Mobile & Light/Dark Mode Safe */
+    [data-testid="stSidebar"] {
+        background-color: var(--background-color) !important;
+        z-index: 999999 !important; /* 모바일에서 메인 콘텐츠 위로 완전히 덮이도록 강제 */
     }
 
-
-
+    [data-testid="stSidebar"] > div:first-child,
+    [data-testid="stSidebarContent"] {
+        background-color: var(--background-color) !important; /* 투명도가 포함된 secondary-background 대신 완전한 솔리드 컬러 사용 */
+        opacity: 1 !important;
+        backdrop-filter: none !important;
+    }
 
     /* Tight Sidebar Layout to Minimize Scrolling */
     [data-testid="stSidebarContent"] {
-        padding: 0.0rem 0.8rem !important; /* Reduced top/side padding */
+        padding: 0.0rem 0.8rem !important; 
     }
     
     [data-testid="stSidebarContent"] .stMarkdown, 
     [data-testid="stSidebarContent"] .stHeader,
     [data-testid="stSidebarContent"] .stButton {
         margin-top: 0 !important;
-        margin-bottom: 0.0rem !important; /* Very tight vertical gaps */
+        margin-bottom: 0.0rem !important; 
     }
 
     [data-testid="stSidebarContent"] h2, 
     [data-testid="stSidebarContent"] h3 {
-        margin-bottom: 0.2rem !important; /* Even tighter for headers */
+        margin-bottom: 0.2rem !important; 
         padding-top: 0.2rem !important;
     }
     
     [data-testid="stSidebarContent"] hr {
         margin-top: 0 !important;
-        margin-bottom: 0.4rem !important; /* Symmetric gap with elements */
+        margin-bottom: 0.4rem !important; 
         border: none;
         border-top: 1px solid rgba(128, 128, 128, 0.2);
     }
     </style>
     """, unsafe_allow_html=True)
-
 
 
 
